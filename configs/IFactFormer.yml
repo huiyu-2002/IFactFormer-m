@@ -1,0 +1,19 @@
+log_dir: results
+
+model:
+    in_dim: 3
+    out_dim: 3
+    in_time_window: 1
+    dim: 96
+    heads: 5
+    depth: 1
+    dim_head: 96
+    n_layer: 10
+    model: IFactFormer_m
+
+training:
+    epochs: 30
+    lr: 0.0005
+    batch_size: 5
+    scheduler_step: 5
+    scheduler_gamma: 0.7
