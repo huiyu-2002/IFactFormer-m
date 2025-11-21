@@ -85,12 +85,8 @@ class FABlock3D_m(nn.Module):
 
         self.to_out = nn.Sequential(
             nn.InstanceNorm3d(3 * dim_head * heads),
+            Rearrange('b c i l r -> b i l r c', h=self.heads),
             nn.Linear(3 * dim_head * heads, dim_out, bias=False),
-            nn.GELU(),
-            nn.Linear(dim_out, dim_out, bias=False))
-        
-        self.to_out_1 = nn.Sequential(
-            nn.Linear(dim, dim_out, bias=False),
             nn.GELU(),
             nn.Linear(dim_out, dim_out, bias=False))
 
@@ -115,10 +111,9 @@ class FABlock3D_m(nn.Module):
         u_phi_z = torch.einsum('bhrs,bhilsc->bhilrc', k_z, u_phi)
         
         u_phi = torch.cat([u_phi_x, u_phi_y, u_phi_z], dim=5)
-        u_phi = rearrange(u_phi, 'b h i l r c -> b i l r (h c)', h=self.heads)
+        u_phi = rearrange(u_phi, 'b h i l r c -> b (h c) i l r', h=self.heads)
         
-        u_phi = self.to_out(u_phi)
-        u = self.to_out_1(u_phi)
+        u = self.to_out(u_phi)
         
         return u
     
@@ -178,6 +173,7 @@ class FABlock3D_o(nn.Module):
 
         self.to_out = nn.Sequential(
             nn.InstanceNorm3d(dim_head * heads),
+            Rearrange('b c i l r -> b i l r c', h=self.heads),
             nn.Linear(dim_head * heads, dim_out, bias=False),
             nn.GELU(),
             nn.Linear(dim_out, dim_out, bias=False))
@@ -201,6 +197,6 @@ class FABlock3D_o(nn.Module):
         u_phi = torch.einsum('bhij,bhjmsc->bhimsc', k_x, u_phi)
         u_phi = torch.einsum('bhlm,bhimsc->bhilsc', k_y, u_phi)
         u_phi = torch.einsum('bhrs,bhilsc->bhilrc', k_z, u_phi)
-        u_phi = rearrange(u_phi, 'b h i l r c -> b i l r (h c)', h=self.heads)
+        u_phi = rearrange(u_phi, 'b h i l r c -> b (h c) i l r', h=self.heads)
 
         return self.to_out(u_phi)
