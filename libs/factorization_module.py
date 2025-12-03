@@ -173,7 +173,7 @@ class FABlock3D_o(nn.Module):
 
         self.to_out = nn.Sequential(
             nn.InstanceNorm3d(dim_head * heads),
-            Rearrange('b c i l r -> b i l r c', h=self.heads),
+            Rearrange('b c i l r -> b i l r c'),
             nn.Linear(dim_head * heads, dim_out, bias=False),
             nn.GELU(),
             nn.Linear(dim_out, dim_out, bias=False))
