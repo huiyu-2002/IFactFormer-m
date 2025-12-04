@@ -19,10 +19,13 @@ The dataset can download at [fDNS_kaggle](https://www.kaggle.com/datasets/aiflui
 ## Citation
 
 ```
-@article{yang2024implicit,
+@article{yang2026implicit,
   title={Implicit factorized transformer approach to fast prediction of turbulent channel flows},
   author={Yang, Huiyu and Wang, Yunpeng and Wang, Jianchun},
-  journal={arXiv preprint arXiv:2412.18840},
-  year={2024}
+  journal={Science China Physics, Mechanics \& Astronomy},
+  volume={69},
+  number={1},
+  pages={214606},
+  year={2026}
 }
 ```
