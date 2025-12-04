@@ -22,7 +22,7 @@ The dataset can download at [fDNS_kaggle](https://www.kaggle.com/datasets/aiflui
 @article{yang2026implicit,
   title={Implicit factorized transformer approach to fast prediction of turbulent channel flows},
   author={Yang, Huiyu and Wang, Yunpeng and Wang, Jianchun},
-  journal={Science China Physics, Mechanics \& Astronomy},
+  journal={Science China Physics, Mechanics & Astronomy},
   volume={69},
   number={1},
   pages={214606},
